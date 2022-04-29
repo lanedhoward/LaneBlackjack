@@ -1,0 +1,58 @@
+#include "Player.h"
+
+Player::Player(Deck& deck)
+: m_deck(deck)
+{
+	Reset();
+}
+
+void Player::Reset()
+{
+	m_aces = 0;
+	m_handTotal = 0;
+
+}
+
+int Player::Turn()
+{
+	//draw two cards !!
+	Hit();
+	Hit();
+
+	//think !! make decisions !! execute the strategy !! play the game !!
+	Think();
+
+	// think is recursive, once it is done, return hand total
+
+	//handle total score w/ aces counting. thhis loop should catch any stand.
+	int temp_total = 0;
+	for (int i = m_aces; i >= 0; i--)
+	{
+		//check if we can get to 21 or under by counting our aces as 11 (adding 10).
+		temp_total = m_handTotal + 10 * i;
+		if (temp_total <= 21) return temp_total;
+	}
+
+	//this one should only happen for busts
+	return m_handTotal;
+
+}
+
+void Player::Hit()
+{
+	int n = m_deck.Draw();
+
+	if (n == 1)
+	{
+		//drew ace
+		m_aces += 1;
+	}
+
+	m_handTotal += n;
+
+}
+
+void Player::Think()
+{
+
+}
