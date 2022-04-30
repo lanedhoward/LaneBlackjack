@@ -10,21 +10,16 @@
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    Game game = Game();
 
-    Deck d = Deck();
+    for (size_t i = 0; i < 100; i++)
+    {
+        ConsoleUtils::Print(game.Run());
+    }
 
-	ConsoleUtils::Print(std::to_string(d.deck.size()));
-	
-	for (size_t i = 0; i < d.deck.size(); i++)
-	{
-		ConsoleUtils::Print(std::to_string(d.deck[i]));
-	}
-	
-	for (size_t i = 0; i < 4; i++)
-	{
-		ConsoleUtils::Print("Draw: " + std::to_string(d.Draw()));
-	}
+    ConsoleUtils::Print(game.DisplayWins());
+    
+    
 
 }
 

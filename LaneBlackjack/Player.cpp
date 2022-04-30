@@ -1,8 +1,8 @@
 #include "Player.h"
 
-Player::Player(Deck& deck)
-: m_deck(deck)
+Player::Player(Deck* deck)
 {
+	m_deck = deck;
 	Reset();
 }
 
@@ -40,7 +40,7 @@ int Player::Turn()
 
 void Player::Hit()
 {
-	int n = m_deck.Draw();
+	int n = m_deck->Draw();
 
 	if (n == 1)
 	{
@@ -54,5 +54,24 @@ void Player::Hit()
 
 void Player::Think()
 {
+
+	// player Think is just running through the official "dealer's play" from the blackjack rules
+	// https://bicyclecards.com/how-to-play/blackjack/
+
+	if (m_handTotal >= 17) return;
+	if (m_aces > 0)
+	{
+		int temp_total = 0;
+		for (int i = m_aces; i > 0; i--)
+		{
+			//check if we can get to 17 or higher by counting our aces as 11 (adding 10).
+			temp_total = m_handTotal + 10 * i;
+			if (temp_total >= 17 && temp_total <= 21) return;
+		}
+	}
+
+	//not between 17 and 21, so hit and then think again
+	Hit();
+	Think();
 
 }

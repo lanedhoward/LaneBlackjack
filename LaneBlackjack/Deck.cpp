@@ -1,12 +1,18 @@
 #include "Deck.h"
+#include <time.h>
 
 Deck::Deck()
 {
+	//seed random number generator
+	// taken from https://www.geeksforgeeks.org/rand-and-srand-in-ccpp/
+	srand(time(0));
+
 	Reset();
 }
 
 void Deck::Populate()
 {
+	// clears deck, fills it up with int "Cards" from 1-10. but 10 is added 3 more times for the face cards. repeats for 4 suits.
 	deck.clear();
 	
 	for (size_t i = 0; i < 4; i++)
